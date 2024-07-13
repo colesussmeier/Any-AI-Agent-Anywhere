@@ -1,0 +1,22 @@
+services:
+  jupyter:
+    build:
+      context: .
+    ports:
+      - 8889:8888
+    volumes:
+      - a4-project-volume:/home/jovyan/work
+    command: start-notebook.py --NotebookApp.token='dev'
+    environment:
+      - OPENAI_API_KEY=YOUR_OPENAI_API_KEY
+      - CLAUDE_API_KEY=YOUR_CLAUDE_API_KEY
+    networks:
+      - ollama-network
+
+volumes:
+  a4-project-volume:
+    name: a4-project-volume
+
+networks:
+  ollama-network:
+    external: true
